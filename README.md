@@ -3,7 +3,7 @@
 This project revolves around the creation of an E-Commerce system using Angular for the frontend and interactions with the FakeAPI or an equivalent backend service. The main objective is to offer an intuitive shopping experience for users and an efficient management interface for administrators.
 
 - Frontend: CSS, TypeScript, Angular, NgRx for state management
-- Backend: FakeAPI or equivalent backend service
+- Backend: [FakeAPI](https://fakeapi.platzi.com/) or equivalent backend service
 
 ## Table of Contents
 
