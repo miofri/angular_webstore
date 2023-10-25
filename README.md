@@ -36,7 +36,7 @@ This project revolves around the creation of an E-Commerce system using Angular 
 - Admin Functionalities
   - Extended User Management: Modify user roles, and register new users as admin.
 - ... and any other enhancements that are envisioned...
-- Start with some basic unit tests, such as
+- Start with some basic unit tests, such as testing actions and effects.
 
 ## Prerequisites
 
@@ -47,6 +47,8 @@ This project revolves around the creation of an E-Commerce system using Angular 
 - The README should provide comprehensive information about the project and include deployment steps.
 
 ## Guidelines to start working with NgRx
+
+*Remember that codes provided in this guidelines should only be used as references. Errors and conflicts could happens due to the differences of paths or other configurations in your codes.*
 
 1. Component creation
 
@@ -120,7 +122,7 @@ export class ProductsService {
 - Implement effects to manage API requests. For example, let's handle the fetching of products from an API.
 
   - Path: `src/app/store/effects/products.effects.ts`
-
+    - Class effects:
   ```
   import { Injectable } from '@angular/core';
   import { Actions, ofType, createEffect } from '@ngrx/effects';
@@ -135,7 +137,7 @@ export class ProductsService {
 
     constructor(
       private actions$: Actions,
-      private productService: ProductsService  // Inject the ProductService
+      private productsService: ProductsService  // Inject the ProductsService
     ) {}
 
     loadProducts$ = createEffect(() =>
@@ -149,6 +151,29 @@ export class ProductsService {
       )
     );
   }
+  ```
+  - Or you can also use Functional effects:
+  ```
+  import { inject } from '@angular/core';
+  import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+  import { Actions, createEffect, ofType } from '@ngrx/effects';
+
+  import * as ProductsActions from './path-to-product-actions';
+  import { ProductsService } from './path-to-products-service'; 
+
+  export const loadProducts$ = createEffect(
+    (actions$ = inject(Actions), productsService = inject(ProductsService)) => {
+      return actions$.pipe(
+          ofType(ProductsActions.loadProducts),
+          mergeMap(() => productsService.getProducts()  // Use the injected service
+            .pipe(
+              map(products => ProductsActions.loadProductsSuccess({ products })),
+              catchError(error => of(ProductsActions.loadProductsFailure({ error })))
+            ))
+        );
+    },
+    { functional: true }
+  );
   ```
 
 - Register effects. For example, let's register product effects in the root level.
@@ -301,3 +326,99 @@ export class ProductsService {
   // ...
   ```
 
+6. Testing examples
+- Testing products actions
+```
+import * as ProductsActions from './products.actions';
+
+describe('Products Actions', () => {
+  it('should create a Load Products action', () => {
+    const action = ProductsActions.loadProducts();
+    expect(action.type).toEqual('[Products] Load Products');
+  });
+
+  it('should create a Load Products Success action', () => {
+    const products: Product[] = [{ id: 1, name: 'Product 1', //... }, { id: 2, name: 'Product 2', //... }];
+    const action = ProductsActions.loadProductsSuccess({ products });
+    expect(action.type).toEqual('[Products] Load Products Success');
+    expect(action.products).toEqual(products);
+  });
+
+  // Add similar tests for other actions ...
+});
+
+```
+- Testing products effects
+```
+import { TestBed } from '@angular/core/testing';
+import { Actions } from '@ngrx/effects';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Observable, of, throwError } from 'rxjs';
+import { cold, hot } from 'jasmine-marbles';
+
+import { ProductsService } from './products.service';
+import * as ProductsActions from './products.actions';
+import { ProductsEffects } from './products.effects';
+
+describe('ProductEffects', () => {
+  let actions$: Observable<any>;
+  let effects: ProductsEffects;
+  let productsService: jasmine.SpyObj<ProductsService>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        ProductsEffects,
+        provideMockActions(() => actions$),
+        {
+          provide: ProductsService,
+          useValue: jasmine.createSpyObj('ProductsService', ['getProducts'])
+        }
+      ]
+    });
+
+    effects = TestBed.inject(ProductsEffects);
+    productsService = TestBed.inject(ProductsService) as jasmine.SpyObj<ProductsService>;
+  });
+
+  it('should load products successfully', () => {
+    const products: Product[] = [{ id: 1, name: 'Product 1' }];
+    productsService.getProducts.and.returnValue(of(products));
+    actions$ = of(ProductsActions.loadProducts());
+
+    effects.loadProducts$.subscribe(action => {
+      expect(action).toEqual(ProductsActions.loadProductsSuccess({ products }));
+    });
+  });
+
+  it('should handle product load failure', () => {
+    productsService.getProducts.and.returnValue(throwError('error'));
+    actions$ = of(ProductsActions.loadProducts());
+
+    effects.loadProducts$.subscribe(action => {
+      expect(action).toEqual(ProductsActions.loadProductsFailure({ error: 'error' }));
+    });
+  });
+
+  // optionally, you can use marble test
+  it('should load products successfully', () => {
+      const products: Product[] = [{ id: 1, name: 'Product 1' }];
+      productsService.getProducts.and.returnValue(of(products));
+      actions$ = of(ProductsActions.loadProducts());
+
+      effects.loadProducts$.subscribe(action => {
+      expect(action).toEqual(ProductsActions.loadProductsSuccess({ products }));
+    });
+  });
+
+  it('should handle product load failure', () => {
+    productsService.getProducts.and.returnValue(throwError('error'));
+    actions$ = of(ProductsActions.loadProducts());
+
+    effects.loadProducts$.subscribe(action => {
+      expect(action).toEqual(ProductsActions.loadProductsFailure({ error: 'error' }));
+    });
+  });
+});
+
+```
