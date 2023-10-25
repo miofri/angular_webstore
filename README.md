@@ -48,7 +48,7 @@ This project revolves around the creation of an E-Commerce system using Angular 
 
 ## Guidelines to start working with NgRx
 
-*Remember that codes provided in this guidelines should only be used as references. Errors and conflicts could happens due to the differences of paths or other configurations in your codes.*
+_Remember that codes provided in this guidelines should only be used as references. Errors and conflicts could happen due to the differences of paths or other configurations in your codes._
 
 1. Component creation
 
@@ -123,6 +123,7 @@ export class ProductsService {
 
   - Path: `src/app/store/effects/products.effects.ts`
     - Class effects:
+
   ```
   import { Injectable } from '@angular/core';
   import { Actions, ofType, createEffect } from '@ngrx/effects';
@@ -152,14 +153,16 @@ export class ProductsService {
     );
   }
   ```
+
   - Or you can also use Functional effects:
+
   ```
   import { inject } from '@angular/core';
   import { catchError, exhaustMap, map, of, tap } from 'rxjs';
   import { Actions, createEffect, ofType } from '@ngrx/effects';
 
   import * as ProductsActions from './path-to-product-actions';
-  import { ProductsService } from './path-to-products-service'; 
+  import { ProductsService } from './path-to-products-service';
 
   export const loadProducts$ = createEffect(
     (actions$ = inject(Actions), productsService = inject(ProductsService)) => {
@@ -276,16 +279,21 @@ export class ProductsService {
   ```
 
 5. Complete other components and adding routes
+
 - Base App Structure
+
   - Create a base component layout that includes the header and footer. This component will act as a shell for all other components.
   - For example: if all pages share same header and footer, we can setup `app.component.html`:
+
   ```
   <app-header></app-header>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 
   ```
+
 - Define the primary routes for the application in `app-routing.module.ts`:
+
   ```
   import { NgModule } from '@angular/core';
   import { RouterModule, Routes } from '@angular/router';
@@ -313,9 +321,11 @@ export class ProductsService {
   })
   export class AppRoutingModule { }
   ```
+
 - To create navigation link in any template, use link element. For example: `<a routerLink="/products">Products</a>`
 - Example of dynamic links: `<a *ngFor="let product of products" [routerLink]="['/products', product.id]">{{ product.name }}</a>`
-- Example of using navigator method in component class: 
+- Example of using navigator method in component class:
+
   ```
   // ...
   constructor(private router: Router) { }
@@ -327,7 +337,9 @@ export class ProductsService {
   ```
 
 6. Testing examples
+
 - Testing products actions
+
 ```
 import * as ProductsActions from './products.actions';
 
@@ -348,7 +360,9 @@ describe('Products Actions', () => {
 });
 
 ```
+
 - Testing products effects
+
 ```
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
