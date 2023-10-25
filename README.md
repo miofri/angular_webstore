@@ -11,7 +11,7 @@ This project revolves around the creation of an E-Commerce system using Angular 
   - [Core Features](#1-core-features)
   - [Additional Features](#2-additional-features)
 - [Prerequisites](#prerequisites)
-- [Testing](#testing)
+- [Guidelines to start working with NgRx](#guidelines-to-start-working-with-ngrx)
 
 ## Features
 
