@@ -249,3 +249,55 @@ export class ProductsService {
   </div>
   //...
   ```
+
+5. Complete other components and adding routes
+- Base App Structure
+  - Create a base component layout that includes the header and footer. This component will act as a shell for all other components.
+  - For example: if all pages share same header and footer, we can setup `app.component.html`:
+  ```
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+
+  ```
+- Define the primary routes for the application in `app-routing.module.ts`:
+  ```
+  import { NgModule } from '@angular/core';
+  import { RouterModule, Routes } from '@angular/router';
+
+  // Import your components
+  import { ProductsComponent } from './products/products.component';
+  import { ProductComponent } from './product/product.component';
+
+  const routes: Routes = [
+    {
+      path: '',
+      redirectTo: '/products', // if you want to use products page as home page, otherwise, create component for homepage
+      pathMatch: 'full'
+    },
+    {
+      path: 'products',
+      component: ProductsComponent,
+    },
+    // declare other paths here
+  ];
+
+  @NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule { }
+  ```
+- To create navigation link in any template, use link element. For example: `<a routerLink="/products">Products</a>`
+- Example of dynamic links: `<a *ngFor="let product of products" [routerLink]="['/products', product.id]">{{ product.name }}</a>`
+- Example of using navigator method in component class: 
+  ```
+  // ...
+  constructor(private router: Router) { }
+
+  navigateToProduct(productId: number) {
+    this.router.navigate(['/products', productId]);
+  }
+  // ...
+  ```
+
