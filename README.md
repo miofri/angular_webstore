@@ -210,7 +210,7 @@ export class ProductsService {
 
     export const initialProductState: Product[] = [];
 
-    export const productReducer = createReducer(
+    export const productsReducer = createReducer(
         initialProductState,
         on(ProductsActions.loadProductsSuccess, (state, { products }) => [...products])
         // ... Similarly for other CRUD actions
