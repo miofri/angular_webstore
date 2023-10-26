@@ -415,14 +415,19 @@ describe('ProductEffects', () => {
   });
 
   // optionally, you can use marble test
-  it('should load products successfully', () => {
-      const products: Product[] = [{ id: 1, name: 'Product 1' }];
-      productsService.getProducts.and.returnValue(of(products));
-      actions$ = of(ProductsActions.loadProducts());
+  it('should dispatch loadProductsSuccess action on successful API call', () => {
+    const products = [{ id: 1, name: 'Product A' }, { id: 2, name: 'Product B' }];
+    
+    const action = loadProducts();
+    const outcome = loadProductsSuccess({ products });
 
-      effects.loadProducts$.subscribe(action => {
-      expect(action).toEqual(ProductsActions.loadProductsSuccess({ products }));
-    });
+    actions$ = hot('-a', { a: action });
+    const response = cold('-b|', { b: products });
+    const expected = cold('--c', { c: outcome });
+
+    productService.getProducts.and.returnValue(response);
+
+    expect(effects.loadProducts$).toBeObservable(expected);
   });
 
   it('should handle product load failure', () => {
