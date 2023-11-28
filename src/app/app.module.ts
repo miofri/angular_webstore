@@ -8,11 +8,23 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductsComponent } from './products/products.component';
 import { ProductsEffects } from './store/effects/products.effects';
 import { productsReducer } from './store/reducers/products.reducer';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductDetailComponent,
+    CartComponent,
+    ProfileComponent,
+    AdminDashboardComponent,
+    ManageProductsComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
