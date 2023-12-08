@@ -1,1 +1,14 @@
-<p>products works!</p>
+<div *ngIf="error$ | async as error">
+	<p>Error: {{ error }}</p>
+</div>
+
+<div class="container" *ngIf="allProducts$ | async as products">
+	<div class="card card-bordered  bg-base-200" *ngFor="let product of products">
+		<figure><img [src]="product.images[0]" [alt]="product.name" /></figure>
+		<div class="card-body">
+			<h2 class="card-title">{{product.title}}</h2>
+			<p>{{product.price | currency:'EUR'}}</p>
+			<p>{{ product.description }}</p>
+		</div>
+	</div>
+</div>

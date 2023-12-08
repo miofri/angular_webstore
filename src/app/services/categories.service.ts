@@ -1,25 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Product } from '../models/product.model';
-import { Observable, catchError, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Category } from '../models/category.model';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class ProductsService {
-	private apiUrl = 'https://api.escuelajs.co/api/v1/products';
+export class CategoriesService {
+	private apiUrl = 'https://api.escuelajs.co/api/v1/categories';
 
 	constructor(private http: HttpClient) {}
 
-	httpOptions = {
-		headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-	};
-
-	loadProducts(): Observable<Product[]> {
-		return this.http.get<Product[]>(this.apiUrl).pipe(
-			tap((p) => console.log('Loaded products:', p)),
-			catchError(this.handleError<Product[]>('loadProducts'))
+	loadCategories() {
+		return this.http.get<Category[]>(this.apiUrl).pipe(
+			tap((c) => console.log('Loaded categories:', c)),
+			catchError(this.handleError<Category[]>('loadCategory'))
 		);
 	}
 

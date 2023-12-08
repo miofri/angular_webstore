@@ -1,20 +1,28 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+
+import { MatCardModule } from '@angular/material/card';
+
 import { ProductsComponent } from './products/products.component';
-// import { ProductsEffects } from './store/effects/products.effects';
-// import { productsReducer } from './store/reducers/products.reducer';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { productReducer } from './stores/products-store/product.reducer';
+import { ProductEffects } from './stores/products-store/product.effects';
+import { categoriesReducer } from './stores/categories-store/categories.reducer';
+import { CategoriesEffects } from './stores/categories-store/categories.effects';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
 	declarations: [
@@ -26,15 +34,20 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 		AdminDashboardComponent,
 		ManageProductsComponent,
 		ManageUsersComponent,
+		CategoriesComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		// StoreModule.forRoot({ products: productsReducer }, {}),
-		// EffectsModule.forRoot([ProductsEffects]),
-		StoreModule.forRoot({}, {}),
+		HttpClientModule,
 		EffectsModule.forRoot([]),
 		StoreRouterConnectingModule.forRoot(),
+		StoreModule.forRoot({}, {}),
+		StoreModule.forFeature('products', productReducer),
+		StoreModule.forFeature('categories', categoriesReducer),
+		EffectsModule.forFeature([ProductEffects, CategoriesEffects]),
+		BrowserAnimationsModule,
+		MatCardModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

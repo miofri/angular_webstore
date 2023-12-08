@@ -1,0 +1,11 @@
+<div *ngIf="error$ | async as error">
+	<p>Error: {{ error }}</p>
+</div>
+
+<div
+	class=" w-5/6 flex flex-row justify-center align-middle m-auto flex-wrap gap-4"
+	*ngIf="allCategories$ | async as categories">
+	<div *ngFor="let category of categories | slice:0:10; let i=index">
+		<button class="btn btn-outline btn-accent " *ngIf="i<8">{{category.name}}</button>
+	</div>
+</div>
