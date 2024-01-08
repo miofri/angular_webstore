@@ -7,7 +7,7 @@ import {
 	loadProducts,
 	loadProductsSuccess,
 	loadProductsFailure,
-} from './product.action';
+} from './product.actions';
 import { Product } from 'src/app/models/product.model';
 import { ActionStatus } from './product.reducer';
 

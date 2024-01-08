@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from '../models/category.model';
 import { Observable, catchError, of, tap } from 'rxjs';
+import { Product } from '../models/product.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,6 +17,15 @@ export class CategoriesService {
 			tap((c) => console.log('Loaded categories:', c)),
 			catchError(this.handleError<Category[]>('loadCategory'))
 		);
+	}
+
+	loadProductsByCategory(categoryId: number) {
+		return this.http
+			.get<Product[]>(`${this.apiUrl}/${categoryId}/products`)
+			.pipe(
+				tap((c) => console.log('Loaded products by category:', c)),
+				catchError(this.handleError<Product[]>('loadProductsByCategory'))
+			);
 	}
 
 	/**

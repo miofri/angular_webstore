@@ -7,7 +7,7 @@ import {
 	loadCategories,
 	loadCategoriesSuccess,
 	loadCategoriesFailure,
-} from './categories.action';
+} from './categories.actions';
 
 @Injectable()
 export class CategoriesEffects {

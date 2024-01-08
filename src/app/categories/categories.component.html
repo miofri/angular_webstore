@@ -6,6 +6,18 @@
 	class=" w-5/6 flex flex-row justify-center align-middle m-auto flex-wrap gap-4"
 	*ngIf="allCategories$ | async as categories">
 	<div *ngFor="let category of categories ; let i=index">
-		<button class="btn btn-outline btn-accent " *ngIf="i<20">{{category.name}}</button>
+		<button class="btn btn-outline btn-accent " *ngIf="i<20" (click)="loadProducts(category.id)">{{category.name}}</button>
+	</div>
+
+	<div class="container" *ngIf="selectedCategory !== undefined">
+		<div class="card card-bordered  bg-base-200" *ngFor="let product of selectedProducts">
+		<figure><img [src]="product.images[0]" [alt]="product.name" /></figure>
+		<div class="card-body">
+			<h2 class="card-title">{{product.title}}</h2>
+			<p>{{product.price | currency:'EUR'}}</p>
+			<p>{{ product.description }}</p>
+			<p>{{ product.category.name }}</p>
+		</div>
+		</div>
 	</div>
 </div>

@@ -4,7 +4,7 @@ import {
 	loadCategories,
 	loadCategoriesSuccess,
 	loadCategoriesFailure,
-} from './categories.action';
+} from './categories.actions';
 
 export type ActionStatus = 'pending' | 'loading' | 'error' | 'success';
 

@@ -4,7 +4,7 @@ import {
 	loadProducts,
 	loadProductsSuccess,
 	loadProductsFailure,
-} from './product.action';
+} from './product.actions';
 
 export type ActionStatus = 'pending' | 'loading' | 'error' | 'success';
 

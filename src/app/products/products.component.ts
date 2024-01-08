@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectAllProducts } from '../stores/products-store/product.selectors';
 import { Observable } from 'rxjs';
 import { AppState } from '../stores/app.state';
-import { loadProducts } from '../stores/products-store/product.action';
+import { loadProducts } from '../stores/products-store/product.actions';
 
 @Component({
 	selector: 'app-products',
