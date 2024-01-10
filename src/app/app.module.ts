@@ -23,6 +23,8 @@ import { ProductEffects } from './stores/products-store/product.effects';
 import { categoriesReducer } from './stores/categories-store/categories.reducer';
 import { CategoriesEffects } from './stores/categories-store/categories.effects';
 import { CategoriesComponent } from './categories/categories.component';
+import { CartEffects } from './stores/cart-store/cart.effects';
+import { cartReducer } from './stores/cart-store/cart.reducer';
 
 @NgModule({
 	declarations: [
@@ -45,7 +47,8 @@ import { CategoriesComponent } from './categories/categories.component';
 		StoreModule.forRoot({}, {}),
 		StoreModule.forFeature('products', productReducer),
 		StoreModule.forFeature('categories', categoriesReducer),
-		EffectsModule.forFeature([ProductEffects, CategoriesEffects]),
+		StoreModule.forFeature('cart', cartReducer),
+		EffectsModule.forFeature([ProductEffects, CategoriesEffects, CartEffects]),
 		BrowserAnimationsModule,
 		MatCardModule,
 	],

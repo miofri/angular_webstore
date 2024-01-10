@@ -1,9 +1,26 @@
-.container {
-	margin-top: 2vh;
+:host {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+button {
+	width: 10vw;
+}
+.button-container {
 	width: 70vw;
 	display: flex;
 	justify-content: center;
-	flex-wrap: wrap;
+	align-items: center;
 	flex-direction: row;
-	gap: 2vw;
+	gap: 0vw;
+}
+
+.price {
+	font-size: 1.5rem;
+}
+
+.card {
+	width: 20%;
+	height: auto;
+	gap: 1vh;
 }

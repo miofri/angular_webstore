@@ -4,13 +4,14 @@ import { Store } from '@ngrx/store';
 import { selectAllCategories } from '../stores/categories-store/categories.selectors';
 import { Observable } from 'rxjs';
 import { loadCategories } from '../stores/categories-store/categories.actions';
+import { addToCart } from '../stores/cart-store/cart.actions';
 import { Product } from '../models/product.model';
 import { CategoriesService } from '../services/categories.service';
 
 @Component({
 	selector: 'app-categories',
 	templateUrl: './categories.component.html',
-	styleUrl: './categories.component.css',
+	styleUrls: ['./categories.component.css', '../shared-style.css'],
 })
 export class CategoriesComponent implements OnInit {
 	constructor(
@@ -34,5 +35,13 @@ export class CategoriesComponent implements OnInit {
 		this.categoryService
 			.loadProductsByCategory(category)
 			.subscribe((product) => (this.selectedProducts = product));
+	}
+
+	addToCart(addItem: Product) {
+		const item = {
+			product: addItem,
+			quantity: 1,
+		};
+		this.store.dispatch(addToCart({ item }));
 	}
 }

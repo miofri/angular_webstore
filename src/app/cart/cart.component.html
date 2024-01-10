@@ -1,4 +1,24 @@
-<div class="container">
-	<p>cart works!</p>
+ <h1 class="text-center">Cart</h1>
+
+<div class="container" *ngIf="allItems$ | async as cartItems">
+	<div class="button-container">
+		<button class="btn btn-warning"
+			[disabled]="cartItems.length < 1">Purchase</button>
+		<button class="btn bg-gray-800"
+			[disabled]="cartItems.length < 1"
+			(click)="emptyCart()">Empty cart</button>
+	</div>
+	<div class="card bg-base-200 shadow-xl"
+		*ngFor="let item of cartItems">
+		<figure>
+			<img [src]="item.product.images[0]" [alt]="item.product.name">
+		</figure>
+		<div class="card-body">
+			<h2 class="card-title">{{item.product.title}}</h2>
+			<p class="price">{{item.product.price | currency:'EUR'}}</p>
+			<p class="card-text">{{item.quantity}}</p>
+			<div class="badge badge-secondary">{{ item.product.category.name }}</div>
+		</div>
+	</div>
 
 </div>

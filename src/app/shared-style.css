@@ -1,0 +1,37 @@
+:host {
+	width: 100vw;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+h1 {
+	font-size: 5rem;
+	margin: 5vh 0;
+}
+.price {
+	font-size: 1.5rem;
+}
+.badge {
+	font-size: smaller;
+}
+.container {
+	margin-top: 2vh;
+	width: 70vw;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	flex-direction: row;
+	gap: 2vw;
+}
+button {
+	font-weight: normal;
+	margin: 1vh;
+	width: 90%;
+}
+.card {
+	width: 25%;
+	height: auto;
+	gap: 1vh;
+}
