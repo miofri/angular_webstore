@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'commerce-app';
+	title = 'commerce-app';
+	constructor(private localStorageService: LocalStorageService) {}
+	signOut() {
+		this.localStorageService.removeItem('loggedinUser');
+		sessionStorage.removeItem('loggedinUser');
+		setTimeout(() => window.location.reload(), 0);
+	}
 }

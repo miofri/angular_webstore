@@ -6,6 +6,11 @@
 button {
 	width: 10vw;
 }
+.badge {
+	margin-top: 2vh;
+	font-size: smaller;
+}
+
 .button-container {
 	width: 70vw;
 	display: flex;
@@ -23,4 +28,22 @@ button {
 	width: 20%;
 	height: auto;
 	gap: 1vh;
+}
+
+.quantity-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 0vw;
+}
+
+.quantity-box p {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.quantity-box button {
+	width: fit-content;
 }

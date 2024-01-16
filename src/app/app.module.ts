@@ -25,6 +25,7 @@ import { CategoriesEffects } from './stores/categories-store/categories.effects'
 import { CategoriesComponent } from './categories/categories.component';
 import { CartEffects } from './stores/cart-store/cart.effects';
 import { cartReducer } from './stores/cart-store/cart.reducer';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
 	declarations: [
@@ -37,6 +38,7 @@ import { cartReducer } from './stores/cart-store/cart.reducer';
 		ManageProductsComponent,
 		ManageUsersComponent,
 		CategoriesComponent,
+		LoginComponent,
 	],
 	imports: [
 		BrowserModule,

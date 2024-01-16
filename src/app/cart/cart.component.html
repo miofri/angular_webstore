@@ -1,6 +1,8 @@
  <h1 class="text-center">Cart</h1>
 
 <div class="container" *ngIf="allItems$ | async as cartItems">
+	<p class="text-center text-4xl">Total: {{totalPrice | currency:'EUR'}}</p>
+
 	<div class="button-container">
 		<button class="btn btn-warning"
 			[disabled]="cartItems.length < 1">Purchase</button>
@@ -16,8 +18,13 @@
 		<div class="card-body">
 			<h2 class="card-title">{{item.product.title}}</h2>
 			<p class="price">{{item.product.price | currency:'EUR'}}</p>
-			<p class="card-text">{{item.quantity}}</p>
-			<div class="badge badge-secondary">{{ item.product.category.name }}</div>
+			<div class="quantity-box">
+				<button (click)="addAmount(item)" class="btn btn-primary btn-sm">+</button>
+				<p class="card-text text-center max-w-fit">{{item.quantity}}</p>
+				<button (click)="reduceAmount(item)"
+					class="btn btn-primary btn-sm">-</button>
+			</div>
+			<div class="badge bg-gray-800">{{ item.product.category.name }}</div>
 		</div>
 	</div>
 

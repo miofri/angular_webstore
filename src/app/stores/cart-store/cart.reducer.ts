@@ -11,14 +11,19 @@ export const cartReducer = createReducer(
 		...state,
 		items: Array.isArray(state.items) ? [...state.items, item] : [item],
 	})),
-	on(
-		CartActions.setCart,
-		(state, cart) => (
-			console.log(cart.cart),
-			{
-				...state,
-				items: cart.cart.items,
-			}
-		)
-	)
+	on(CartActions.setCart, (state, { cart }) => ({
+		...state,
+		items: cart.items,
+	})),
+
+	on(CartActions.updateCart, (state, { item }) => ({
+		...state,
+		items: Array.isArray(state.items)
+			? state.items.map((cartItem) => {
+					return cartItem.product.id === item.product.id
+						? { ...cartItem, quantity: item.quantity }
+						: cartItem;
+			  })
+			: [],
+	}))
 );

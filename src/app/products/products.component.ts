@@ -6,6 +6,7 @@ import { AppState } from '../stores/app.state';
 import { loadProducts } from '../stores/products-store/product.actions';
 import { Product } from '../models/product.model';
 import { addToCart } from '../stores/cart-store/cart.actions';
+import { CartItem } from '../models/cart.model';
 
 @Component({
 	selector: 'app-products',
@@ -29,5 +30,11 @@ export class ProductsComponent implements OnInit {
 			quantity: 1,
 		};
 		this.store.dispatch(addToCart({ item }));
+	}
+
+	reduceQuantity(product: CartItem) {
+		if (product.quantity > 0) {
+			product.quantity--;
+		}
 	}
 }
