@@ -6,7 +6,11 @@ h1 {
 	margin-bottom: 5vh;
 }
 
-.google-container {
+.googleContainer {
 	width: 300px;
 	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

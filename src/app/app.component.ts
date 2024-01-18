@@ -9,6 +9,7 @@ import { LocalStorageService } from './services/local-storage.service';
 export class AppComponent {
 	title = 'commerce-app';
 	constructor(private localStorageService: LocalStorageService) {}
+
 	signOut() {
 		this.localStorageService.removeItem('loggedinUser');
 		sessionStorage.removeItem('loggedinUser');
