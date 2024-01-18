@@ -1,8 +1,16 @@
-.loginContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+h2 {
+	font-size: medium;
+}
 
-	width: 100%;
+.container {
+	@apply flex flex-col items-center justify-center bg-gray-800
+	xl:w-[24vw] xl:h-[24vh]
+	md:w-[40vw] md:h-[24vh]
+	sm:w-[80vw] sm:h-[24vh]
+	w-[80vw] h-[20vh]
+	m-auto rounded-3xl;
+}
+
+#googleBtn {
+	color-scheme: light;
 }

@@ -1,18 +1,25 @@
-<div class="hero h-80 bg-gray-800">
-	<div class="hero-content text-center h-fit w-screen">
-		<div class="max-w-screen-2xl">
-			<h1 class="font-bold" routerLink="/products">Platzi</h1>
-			<p class="py-6">For your daily necessities.</p>
-
-			<div class="navbar">
-				<a class="btn btn-ghost text-xl" routerLink="/products">Products</a>
-				<a class="btn btn-ghost text-xl" routerLink="/categories">Categories</a>
-				<a class="btn btn-ghost text-xl" routerLink="/cart">Cart</a>
-				<a class="btn btn-ghost text-xl" routerLink="/login">Log In</a>
-				<a class="btn btn-ghost text-xl" (click)="signOut()">Log out</a>
+<div class="hero-container min-w-screen bg-gray-800">
+	<div *ngIf="loggedInUser" class="profile-container">
+		<div class="w-6 rounded-xl overflow-hidden">
+			<img src="{{ loggedInUser.picture }}"
+				alt="Profile picture" />
+		</div>
+		Hello, {{ loggedInUser.given_name }}
+	</div>
+	<div class="hero h-80 bg-gray-800">
+		<div class="hero-content text-center h-fit w-screen">
+			<div class="max-w-screen-2xl">
+				<h1 class="font-bold" routerLink="/products">Platzi</h1>
+				<p class="py-6">For your daily necessities.</p>
+				<div class="navbar">
+					<a class="btn btn-ghost text-xl" routerLink="/products">Products</a>
+					<a class="btn btn-ghost text-xl" routerLink="/categories">Categories</a>
+					<a class="btn btn-ghost text-xl" routerLink="/cart">Cart</a>
+					<a class="btn btn-ghost text-xl" routerLink="/login">Log In</a>
+					<a class="btn btn-ghost text-xl" (click)="signOut()">Log out</a>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 <router-outlet></router-outlet>

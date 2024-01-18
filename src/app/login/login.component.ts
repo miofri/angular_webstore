@@ -21,14 +21,14 @@ export class LoginComponent implements OnInit {
 			client_id:
 				'109682536093-2dfgc3ta5nokvhn5cmtf5mqn06ohftee.apps.googleusercontent.com',
 			callback: (resp: any) => {
-				console.log(resp.credential);
 				this.loginInfo = resp.credential;
 				const decodeJWTToken = (token: any) => {
 					return JSON.parse(atob(token.split('.')[1]));
 				};
-				console.log(decodeJWTToken(this.loginInfo));
+				this.loginInfo = decodeJWTToken(this.loginInfo);
+				console.log(JSON.stringify(this.loginInfo));
 				localStorage.setItem('loggedinUser', JSON.stringify(this.loginInfo));
-				setTimeout(() => window.location.reload(), 0);
+				setTimeout(() => window.location.replace('/'), 1);
 			},
 		});
 
